@@ -10,15 +10,12 @@ public class Employee {
 	public Employee() {
 		super();
 	}
-
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
 	public int geteId() {
 		return eId;
 	}
@@ -47,5 +44,4 @@ public class Employee {
 	public String toString() {
 		return "Employee [eId=" + eId + ", name=" + name + ", username=" + username + ", password=" + password + "]";
 	}
-
 }
