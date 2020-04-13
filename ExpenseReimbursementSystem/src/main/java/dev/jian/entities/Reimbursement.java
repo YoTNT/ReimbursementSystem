@@ -5,16 +5,23 @@ public class Reimbursement {
 	private int rId;
 	private int amount;
 	private String description;
+	private String datetime;
 	private int requesterId;
 	private String status;
-	
-	
-	
 	
 	
 	public Reimbursement() {
 		super();
 	}
+	
+	public String getDatetime() {
+		return datetime;
+	}
+
+	public void setDatetime(String datetime) {
+		this.datetime = datetime;
+	}
+
 	public int getrId() {
 		return rId;
 	}
@@ -45,11 +52,10 @@ public class Reimbursement {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
 	@Override
 	public String toString() {
-		return "Reimbursement [rId=" + rId + ", amount=" + amount + ", description=" + description + ", requesterId="
-				+ requesterId + ", status=" + status + "]";
+		return "Reimbursement [rId=" + rId + ", amount=" + amount + ", description=" + description + ", datetime="
+				+ datetime + ", requesterId=" + requesterId + ", status=" + status + "]";
 	}
-	
-	
 }

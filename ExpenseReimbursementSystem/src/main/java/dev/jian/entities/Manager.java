@@ -3,11 +3,24 @@ package dev.jian.entities;
 public class Manager {
 
 	private int mId;
+
+	private String name;
 	private String username;
 	private String password;
+	
+	
 	public Manager() {
 		super();
 	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public int getmId() {
 		return mId;
 	}
@@ -26,11 +39,9 @@ public class Manager {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 	@Override
 	public String toString() {
-		return "Manager [mId=" + mId + ", username=" + username + ", password=" + password + "]";
-	}
-	
-	
-	
+		return "Manager [mId=" + mId + ", name=" + name + ", username=" + username + ", password=" + password + "]";
+	}	
 }

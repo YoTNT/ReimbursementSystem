@@ -3,12 +3,22 @@ package dev.jian.entities;
 public class Employee {
 
 	private int eId;
+	private String name;
 	private String username;
 	private String password;
 	
 	public Employee() {
 		super();
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 
 	public int geteId() {
 		return eId;
@@ -36,9 +46,6 @@ public class Employee {
 
 	@Override
 	public String toString() {
-		return "Employee [eId=" + eId + ", username=" + username + ", password=" + password + "]";
+		return "Employee [eId=" + eId + ", name=" + name + ", username=" + username + ", password=" + password + "]";
 	}
-	
-	
-	
 }
