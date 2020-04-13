@@ -12,19 +12,13 @@ public class Manager {
 		super();
 	}
 	
-	
-	
 	public String getName() {
 		return name;
 	}
 
-
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
-
 
 	public int getmId() {
 		return mId;
@@ -49,5 +43,4 @@ public class Manager {
 	public String toString() {
 		return "Manager [mId=" + mId + ", name=" + name + ", username=" + username + ", password=" + password + "]";
 	}	
-	
 }
