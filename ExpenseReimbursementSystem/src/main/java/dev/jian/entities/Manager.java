@@ -3,7 +3,6 @@ package dev.jian.entities;
 public class Manager {
 
 	private int mId;
-
 	private String name;
 	private String username;
 	private String password;
