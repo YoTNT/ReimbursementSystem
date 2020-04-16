@@ -1,0 +1,52 @@
+package dev.jian.utils;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Properties;
+
+public class ConnectionUtil {
+	
+	// JDBC (Java DataBase Connectivity)
+	// A library for interacting with databases
+	// Core interfaces
+	// 	Connection	-	establishing a connection to a db
+	//	PrepareStatement	-	executing sql statements
+	//	CallableStatement	-	exectuting sql stored procedures
+	//	ResultSet	-	stores the results of a SQL query
+	
+	public static Connection createConnection() {
+		try {
+			// create a properties object to store information
+			Properties props = new Properties();
+			
+			// use file io to read in a file
+			FileInputStream in = new FileInputStream("src/main/resources/connection.properties");
+			
+			// populate properties object by loading in the fileinputstream
+			props.load(in);
+			
+			String details = props.getProperty("condetails");
+			
+			Connection conn = DriverManager.getConnection(details);
+			return conn;
+		} catch(SQLException e){
+			e.printStackTrace();
+			return null;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	
+	
+	
+	
+}
