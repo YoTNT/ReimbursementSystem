@@ -28,7 +28,11 @@ public class DispatcherServlet extends HttpServlet {
 		case "/ReimbursementApp/api/loginemployee":
 			tcontroller.loginEmployee(request, response);
 			break;
-		
+			
+		case "/ReimbursementApp/api/listallemployees":
+			tcontroller.listAllEmployees(request, response);
+			break;
+
 		default:
 			response.getWriter().append("You request uri did not match anything!");
 			break;

@@ -14,7 +14,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 	private EmployeeDAO empdao = new EmployeeDAOmaria();
 
 	@Override
-	public Employee employeeLogin(String username, String password)
+	public Employee employeeLogin(Employee employee)
 			throws EmployeeNotExistException, UnmatchPasswordException {
 
 		boolean employeeExist = false;
@@ -24,10 +24,9 @@ public class EmployeeServiceImpl implements EmployeeService{
 		Employee result = new Employee();
 		
 		for(Employee e : employees) {
-			
-			if(e.getUsername().equals(username)) {
+			if(e.getUsername().equals(employee.getUsername())) {
 				employeeExist = true;
-				if(e.getPassword().equals(password)) {
+				if(e.getPassword().equals(employee.getPassword())) {
 					passwordCorrect = true;
 					result.seteId(e.geteId());
 					result.setName(e.getName());
@@ -47,4 +46,8 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return null;
 	}
 
+	@Override
+	public List<Employee> getAllEmployees() {
+		return empdao.getAllEmployee();
+	}
 }

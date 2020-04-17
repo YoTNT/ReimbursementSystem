@@ -14,7 +14,12 @@ public class ConnectionUtil {
 		try {
 			Properties props = new Properties();
 			
-			FileInputStream in = new FileInputStream("src/main/resources/connection.properties");
+			// This won't work with the servlet, the servlet does not recognize the path
+//			FileInputStream in = new FileInputStream("src/main/resources/connection.properties");
+			// Need to specify the class name of the jdbc driver
+			Class.forName("org.mariadb.jdbc.Driver");
+			FileInputStream in =
+					new FileInputStream(ConnectionUtil.class.getClassLoader().getResource("connection.properties").getFile());
 			
 			props.load(in);
 			
@@ -29,6 +34,10 @@ public class ConnectionUtil {
 		} catch(SQLException e) {
 			e.printStackTrace();
 			return null;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			return null;
+
 		}
 	}
 	
