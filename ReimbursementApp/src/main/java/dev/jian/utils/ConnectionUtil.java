@@ -21,7 +21,6 @@ public class ConnectionUtil {
 			FileInputStream in =
 					new FileInputStream(ConnectionUtil.class.getClassLoader().getResource("connection.properties").getFile());
 			
-			
 			props.load(in);
 			
 			String details = props.getProperty("condetails");
@@ -38,6 +37,7 @@ public class ConnectionUtil {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			return null;
+
 		}
 	}
 	

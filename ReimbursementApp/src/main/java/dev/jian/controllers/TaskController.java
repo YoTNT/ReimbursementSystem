@@ -19,7 +19,6 @@ public class TaskController {
 	ReimbursementService reimserv = new ReimbursementServiceImpl();
 	
 	public void loginEmployee(HttpServletRequest request, HttpServletResponse response) throws IOException {
-	
 		
 		String body = request.getReader().lines().reduce("", (accumulator,actual) ->accumulator+actual);
 		
@@ -45,5 +44,4 @@ public class TaskController {
 		
 		response.getWriter().append(json);
 	}
-	
 }
