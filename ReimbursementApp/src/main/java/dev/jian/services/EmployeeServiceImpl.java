@@ -24,6 +24,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 		Employee result = new Employee();
 		
 		for(Employee e : employees) {
+			
 			if(e.getUsername().equals(employee.getUsername())) {
 				employeeExist = true;
 				if(e.getPassword().equals(employee.getPassword())) {
@@ -50,4 +51,5 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public List<Employee> getAllEmployees() {
 		return empdao.getAllEmployee();
 	}
+
 }

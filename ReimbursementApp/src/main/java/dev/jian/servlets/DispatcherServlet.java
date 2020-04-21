@@ -32,9 +32,14 @@ public class DispatcherServlet extends HttpServlet {
 		case "/ReimbursementApp/api/listallemployees":
 			tcontroller.listAllEmployees(request, response);
 			break;
-
+			
+		case "/ReimbursementApp/api/employee":
+			tcontroller.getEmployeeInformation(request, response);
+			break;
+		
 		default:
-			response.getWriter().append("You request uri did not match anything!");
+			response.getWriter().append("Served at: ").append(request.getContextPath());
+//			response.sendRedirect("http://localhost:8080/ReimbursementApp/index.html");
 			break;
 		
 		}
