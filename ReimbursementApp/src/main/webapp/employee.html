@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Employee Page</title>
+</head>
+
+<body>
+    <h1>Employee Reimbursement Main Page</h1>
+    <h2 id="welcome"></h2>
+    <br>
+    <div id="reimburseSubmission">
+        <h3>Reimbursement Submission</h3>
+        <label for="amount">Amount</label>
+        <input id="amount" type="number" placeholder="Enter your reimbursement amount">
+        <br>
+        <label for="description">Description</label>
+        <br>
+        <textarea id="description" type="text" rows="10" cols="30" 
+        placeholder="Enter the description of your reimbursement"></textarea>
+        <br>
+        <button id="submitBtn">Submit</button>
+    </div>
+
+    <br>
+
+    <div id="reimbursemenHistory">
+        
+        <h3>Reimburse History</h3>
+        <table id="historyTable" border="1">
+            <thead><tr><th>Index</th><th>Amount</th><th>Description</th><th>Date and Time</th><th>Status</th></tr></thead>
+        </table>
+    </div>
+
+</body>
+
+
+
+
+<script>
+
+    async function getEmployeeInfo(){
+
+        let httpResponse = await fetch("http://localhost:8080/ReimbursementApp/api/employee");
+        /* employee object obtain */
+        let employeeData = await httpResponse.json();
+
+        document.getElementById("welcome").innerHTML = `Welcome Back ${employeeData.name}`;
+    }
+    getEmployeeInfo();
+
+    async function getReimbursementHistoryByEmployee(employee){
+
+        
+
+    }
+
+</script>
+
+</html>
