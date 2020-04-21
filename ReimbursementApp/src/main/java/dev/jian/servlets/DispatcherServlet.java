@@ -36,10 +36,17 @@ public class DispatcherServlet extends HttpServlet {
 		case "/ReimbursementApp/api/employee":
 			tcontroller.getEmployeeInformation(request, response);
 			break;
-		
+			
+		case "/ReimbursementApp/api/employeereimbursementhistory":
+			tcontroller.getReimbursementHistoryByEmployee(request, response);
+			break;
+			
+		case "/ReimbursementApp/api/submitreimbursement":
+			tcontroller.submitReimbursementByEmployee(request, response);
+			break;
+			
 		default:
 			response.getWriter().append("Served at: ").append(request.getContextPath());
-//			response.sendRedirect("http://localhost:8080/ReimbursementApp/index.html");
 			break;
 		
 		}
