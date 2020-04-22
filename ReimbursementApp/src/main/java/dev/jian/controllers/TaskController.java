@@ -11,11 +11,15 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.Gson;
 
 import dev.jian.entities.Employee;
+import dev.jian.entities.Manager;
 import dev.jian.entities.Reimbursement;
 import dev.jian.exceptions.EmployeeNotExistException;
+import dev.jian.exceptions.ManagerNotExistException;
 import dev.jian.exceptions.UnmatchPasswordException;
 import dev.jian.services.EmployeeService;
 import dev.jian.services.EmployeeServiceImpl;
+import dev.jian.services.ManagerService;
+import dev.jian.services.ManagerServiceImpl;
 import dev.jian.services.ReimbursementService;
 import dev.jian.services.ReimbursementServiceImpl;
 
@@ -23,6 +27,7 @@ public class TaskController {
 	
 	EmployeeService empserv = new EmployeeServiceImpl();
 	ReimbursementService reimserv = new ReimbursementServiceImpl();
+	ManagerService manserv = new ManagerServiceImpl();
 	
 	public void loginEmployee(HttpServletRequest request, HttpServletResponse response) throws IOException {
 	
@@ -104,6 +109,31 @@ public class TaskController {
 		}
 		else {
 			response.getWriter().append("Fail");
+		}
+	}
+	
+	public void loginManager(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		String body = request.getReader().lines().reduce("", (accumulator,actual) ->accumulator+actual);
+		
+		Gson gson = new Gson();
+		
+		// Unwrapping the JSON object
+		Manager manager = gson.fromJson(body, Manager.class);
+		try {
+			manager = manserv.managerLogin(manager);
+			HttpSession sess = request.getSession();
+			sess.setAttribute("manager",manager);
+			
+			String json = gson.toJson(manager);
+			response.getWriter().append(json);
+			return;
+		}catch(ManagerNotExistException e) {
+			response.sendError(403);
+			return;
+		}catch(UnmatchPasswordException e) {
+			response.sendError(403);
+			return;
 		}
 	}
 		
