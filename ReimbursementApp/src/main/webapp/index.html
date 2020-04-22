@@ -30,7 +30,16 @@
 
 <script>
 
-	document.getElementById("loginBtn").addEventListener("click", loginAsEmployee);
+	document.getElementById("loginBtn").addEventListener("click", loginEntrance);
+
+    function loginEntrance(){
+        let employeeRadio = document.getElementById("role_employee");
+        let managerRadio = document.getElementById("role_manager");
+
+        if(employeeRadio.checked == true){
+            loginAsEmployee();
+        }
+    }
 
     async function loginAsEmployee(){
         
