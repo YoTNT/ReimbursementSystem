@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Manager Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+
+<body>
+    <h1>Manager Reimbursement Main Page</h1>
+    <h2 id="welcome"></h2>
+</body>
+
+<script>
+
+    async function getManagerInfo(){
+        let httpResponse = await fetch("http://localhost:8080/ReimbursementApp/api/manager");
+        let managerData = await httpResponse.json();
+
+        document.getElementById("welcome").innerHTML = `Welcome Back, Manager ${managerData.name}`;
+    }
+    getManagerInfo();
+
+
+</script>
+
+</html>
