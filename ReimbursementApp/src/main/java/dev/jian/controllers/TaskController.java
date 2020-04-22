@@ -136,5 +136,18 @@ public class TaskController {
 			return;
 		}
 	}
+	
+	
+	public void getManagerInformation(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		Manager manager = (Manager) request.getSession().getAttribute("manager");
+		
+		Gson gson = new Gson();
+		
+		String json = gson.toJson(manager);
+
+		response.getWriter().append(json);
+		return;
+	}
 		
 }

@@ -49,6 +49,10 @@ public class DispatcherServlet extends HttpServlet {
 			tcontroller.loginManager(request, response);
 			break;
 			
+		case "/ReimbursementApp/api/manager":
+			tcontroller.getManagerInformation(request, response);
+			break;
+			
 		default:
 			response.getWriter().append("Served at: ").append(request.getContextPath());
 			break;

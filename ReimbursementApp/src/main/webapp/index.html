@@ -39,6 +39,9 @@
         if(employeeRadio.checked == true){
             loginAsEmployee();
         }
+        if(managerRadio.checked == true){
+            loginAsManager();
+        }
     }
 
     async function loginAsEmployee(){
@@ -68,6 +71,35 @@
             console.log(employeeData);  // For testing
             prompt.innerHTML = "Correct username and password!"
             window.location.href = "http://localhost:8080/ReimbursementApp/employee.html";
+        }
+
+    }
+
+    async function loginAsManager(){
+
+        let manager = {};
+        manager.mId = 99;
+        manager.name = "DUMMY";
+        manager.username = document.getElementById("username").value;
+        manager.password = document.getElementById("password").value;
+
+        let settings = {
+            method: "POST",
+            header: {'Content-Type':'application/json'},
+            body:JSON.stringify(manager)
+        }
+
+        let httpResponse = await fetch("http://localhost:8080/ReimbursementApp/api/loginmanager",settings);
+        let httpResponseStatus = await httpResponse.status;
+        let prompt = document.getElementById("prompt");
+        if(httpResponseStatus == 403){
+            prompt.innerHTML = "Unmatch username or passwor!"
+        }
+        else{
+            let managerData = await httpResponse.json();
+            console.log(managerData);  // For testing
+            prompt.innerHTML = "Correct username and password!"
+            window.location.href = "http://localhost:8080/ReimbursementApp/manager.html";
         }
 
     }
