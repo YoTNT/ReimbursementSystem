@@ -4,6 +4,7 @@
 
 <head>
     <title>Employee Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 </head>
 
 <body>
@@ -27,8 +28,14 @@
     <div id="reimbursemenHistory">
         
         <h3>Reimburse History</h3>
-        <table id="historyTable" border="1">
-            <thead><tr><th>Index</th><th>Amount</th><th>Description</th><th>Date and Time</th><th>Status</th></tr></thead>
+        <table id="historyTable" class="table table-bordered">
+            <thead><tr>
+                <th>Index</th>
+                <th>Amount</th>
+                <th>Description</th>
+                <th>Date and Time</th>
+                <th>Status</th>
+            </tr></thead>
         </table>
     </div>
 
@@ -57,7 +64,7 @@
         let httpResponse = await fetch("http://localhost:8080/ReimbursementApp/api/employeereimbursementhistory");
         let reimbursements = await httpResponse.json();
 
-        let reimbursementHistory = document.getElementById("reimbursemenHistory");
+        let reimbursementHistory = document.getElementById("historyTable");
         let index = 1;
 
         for(reimbursement of reimbursements){
@@ -68,7 +75,7 @@
             <td>${reimbursement.description}</td>
             <td>${reimbursement.datetime}</td>
             <td>${reimbursement.status}</td>
-            </tr>`
+            </tr>`;
 
             index++;
         }
@@ -96,9 +103,9 @@
         }
 
         let httpResponse = await fetch("http://localhost:8080/ReimbursementApp/api/submitreimbursement", settings);
-        let result = await httpResponse.json();
+        let result = await httpResponse.text();
         if(await result == "Success"){
-            getReimbursementHistoryByEmployee();
+            await getReimbursementHistoryByEmployee();
             alert("Reimbursement submit successfully!")
         }
         else{
