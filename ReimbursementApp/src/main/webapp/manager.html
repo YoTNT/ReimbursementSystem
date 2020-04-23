@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Manager Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div>
+
+        <h1>Manager Reimbursement Main Page</h1>
+        <h2 id="welcome"></h2>
+
+        <br>
+        <br>
+
+        <h3>Pending Reimbursement List</h3>
+        <table id="pendingTable" class="table table-bordered">
+            <thead><tr>
+                <th>Index</th>
+                <th>Amount</th>
+                <th>Description</th>
+                <th>Date and Time</th>
+            </tr></thead>
+        </table>
+
+        <br>
+
+        <h3>Approved Reimbursement List</h3>
+        <table id="approvedTable" class="table table-bordered">
+            <thead><tr>
+                <th>Index</th>
+                <th>Amount</th>
+                <th>Description</th>
+                <th>Date and Time</th>
+            </tr></thead>
+        </table>
+
+        <br>
+
+        <h3>Denied Reimbursement List</h3>
+        <table id="deniedTable" class="table table-bordered">
+            <thead><tr>
+                <th>Index</th>
+                <th>Amount</th>
+                <th>Description</th>
+                <th>Date and Time</th>
+            </tr></thead>
+        </table>
+
+    </div>
+</body>
+
+<script>
+
+    async function getManagerInfo(){
+        let httpResponse = await fetch("http://localhost:8080/ReimbursementApp/api/manager");
+        let managerData = await httpResponse.json();
+
+        document.getElementById("welcome").innerHTML = `Welcome Back, Manager ${managerData.name}`;
+    }
+    getManagerInfo();
+
+    async function getAllPendingReimbursements(){
+        let httpResponse = await fetch("http://localhost:8080/ReimbursementApp/api/getpendingreimbursements");
+        let reimbursements = await httpResponse.json();
+        let index = 1;
+
+        for(reimbursement of reimbursements){
+            document.getElementById("pendingTable").innerHTML = document.getElementById("pendingTable").innerHTML +
+            `<tr>
+                <td>${index}</td>
+                <td>$${reimbursement.amount}</td>
+                <td>${reimbursement.description}</td>
+                <td>${reimbursement.datetime}</td>
+                <td><button rId=${reimbursement.rId} amount=${reimbursement.amount} description=${reimbursement.description} datetime=${reimbursement.datetime} requesterId=${reimbursement.requesterId} status=${reimbursement.status} onclick="approveReimbursement(this);">Approve</button></td>
+                <td><button rId=${reimbursement.rId} amount=${reimbursement.amount} description=${reimbursement.description} datetime=${reimbursement.datetime} requesterId=${reimbursement.requesterId} status=${reimbursement.status} onclick="denyReimbursement(this);">Deny</button></td>
+            </tr>`;
+
+            index++;
+        }
+    }
+    getAllPendingReimbursements();
+
+    async function getAllApprovedReimbursements(){
+        let httpResponse = await fetch("http://localhost:8080/ReimbursementApp/api/getapprovedreimbursements");
+        let reimbursements = await httpResponse.json();
+        let index = 1;
+
+        for(reimbursement of reimbursements){
+            document.getElementById("approvedTable").innerHTML = document.getElementById("approvedTable").innerHTML +
+            `<tr>
+                <td>${index}</td>
+                <td>$${reimbursement.amount}</td>
+                <td>${reimbursement.description}</td>
+                <td>${reimbursement.datetime}</td>
+            </tr>`;
+
+            index++;
+        }
+    }
+    getAllApprovedReimbursements();
+
+    async function getAllDeniedReimbursements(){
+        let httpResponse = await fetch("http://localhost:8080/ReimbursementApp/api/getdeniedreimbursements");
+        let reimbursements = await httpResponse.json();
+        let index = 1;
+
+        for(reimbursement of reimbursements){
+            document.getElementById("deniedTable").innerHTML = document.getElementById("deniedTable").innerHTML +
+            `<tr>
+                <td>${index}</td>
+                <td>$${reimbursement.amount}</td>
+                <td>${reimbursement.description}</td>
+                <td>${reimbursement.datetime}</td>
+            </tr>`;
+
+            index++;
+        }
+    }
+    getAllDeniedReimbursements();
+
+    async function approveReimbursement(element){
+        let reimbursement = {};
+        reimbursement.rId = element.getAttribute("rId");
+        reimbursement.amount = element.getAttribute("amount");
+        reimbursement.datetime = element.getAttribute("description");
+        reimbursement.requesterId = element.getAttribute("requesterId");
+        reimbursement.status = element.getAttribute("status");
+
+        let settings = {
+            method: "POST",
+            header:{'Content-Type':'application/json'},
+            body: JSON.stringify(reimbursement)
+        }
+
+        let httpResponse = await fetch("http://localhost:8080/ReimbursementApp/api/approvereimbursement",settings);
+        reimbursement = await httpResponse.json();
+        console.log(`rId: ${reimbursement.rId}, amount: ${reimbursement.amount}, description: ${reimbursement.description}, datetime: ${reimbursement.datetime}, requesterId: ${reimbursement.requesterId}, status:${reimbursement.status}`);
+    }
+
+    async function denyReimbursement(element){
+        let reimbursement = {};
+        reimbursement.rId = element.getAttribute("rId");
+        reimbursement.amount = element.getAttribute("amount");
+        reimbursement.datetime = element.getAttribute("description");
+        reimbursement.requesterId = element.getAttribute("requesterId");
+        reimbursement.status = element.getAttribute("status");
+
+        let settings = {
+            method: "POST",
+            header:{'Content-Type':'application/json'},
+            body: JSON.stringify(reimbursement)
+        }
+
+        let httpResponse = await fetch("http://localhost:8080/ReimbursementApp/api/denyreimbursement",settings);
+        reimbursement = await httpResponse.json();
+        console.log(`rId: ${reimbursement.rId}, amount: ${reimbursement.amount}, description: ${reimbursement.description}, datetime: ${reimbursement.datetime}, requesterId: ${reimbursement.requesterId}, status:${reimbursement.status}`);
+    }
+
+
+</script>
+
+</html>
