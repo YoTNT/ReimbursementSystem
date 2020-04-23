@@ -70,7 +70,7 @@ public class DispatcherServlet extends HttpServlet {
 			break;
 			
 		case "/ReimbursementApp/api/denyreimbursement":
-			tcontroller.approveReimbursement(request, response);
+			tcontroller.denyReimbursement(request, response);
 			break;
 			
 		default:
