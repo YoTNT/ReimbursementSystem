@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Employee Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+
+<body>
+    <h1>Employee Reimbursement Main Page</h1>
+    <h2 id="welcome"></h2>
+    <br>
+    <div id="reimburseSubmission">
+        <h3>Reimbursement Submission</h3>
+        <label for="amount">Amount</label>
+        <input id="amount" type="number" placeholder="Enter your reimbursement amount">
+        <br>
+        <h4>Description</h4>
+        <textarea id="description" type="text" rows="10" cols="30" 
+        placeholder="Enter the description of your reimbursement"></textarea>
+        <br>
+        <button id="submitBtn">Submit</button>
+    </div>
+
+    <br>
+
+    <div id="reimbursemenHistory">
+        
+        <h3>Reimburse History</h3>
+        <table id="historyTable" class="table table-bordered">
+            <thead><tr>
+                <th>Index</th>
+                <th>Amount</th>
+                <th>Description</th>
+                <th>Date and Time</th>
+                <th>Status</th>
+            </tr></thead>
+        </table>
+    </div>
+
+</body>
+
+
+
+
+<script>
+
+    document.getElementById("submitBtn").addEventListener("click",submitReimbursement);
+
+    async function getEmployeeInfo(){
+
+        let httpResponse = await fetch("http://localhost:8080/ReimbursementApp/api/employee");
+        /* employee object obtain */
+        let employeeData = await httpResponse.json();
+
+        document.getElementById("welcome").innerHTML = `Welcome Back ${employeeData.name}`;
+    }
+    getEmployeeInfo();
+
+
+    async function getReimbursementHistoryByEmployee(){
+
+        let httpResponse = await fetch("http://localhost:8080/ReimbursementApp/api/employeereimbursementhistory");
+        let reimbursements = await httpResponse.json();
+
+        let reimbursementHistory = document.getElementById("historyTable");
+        let index = 1;
+
+        // Clean up the table before updating
+        reimbursementHistory.innerHTML = "";
+        // Rebuild the head of the table
+        reimbursementHistory.innerHTML = `
+        <thead><tr>
+                <th>Index</th>
+                <th>Amount</th>
+                <th>Description</th>
+                <th>Date and Time</th>
+                <th>Status</th>
+        </tr></thead>
+        `;
+
+        for(reimbursement of reimbursements){
+            reimbursementHistory.innerHTML = reimbursementHistory.innerHTML +
+            `<tr>
+            <td>${index}</td>
+            <td>$${reimbursement.amount}</td>
+            <td>${reimbursement.description}</td>
+            <td>${reimbursement.datetime}</td>
+            <td>${reimbursement.status}</td>
+            </tr>`;
+
+            index++;
+        }
+    }
+    getReimbursementHistoryByEmployee();
+
+
+    async function submitReimbursement(){
+
+        let amount = document.getElementById("amount").value;
+        let description = document.getElementById("description").value;
+
+        let reimbursement = {};
+        reimbursement.rId = 0;
+        reimbursement.amount = amount;
+        reimbursement.description = description;
+        reimbursement.datetime = "now"; //DUMMY
+        reimbursement.requesterId = 1;  //DUMMY
+        reimbursement.status = "Pending"    //DUMMY
+
+        let settings = {
+            method: "POST",
+            header:{'Content-Type':'application/json'},
+            body: JSON.stringify(reimbursement)
+        }
+
+        let httpResponse = await fetch("http://localhost:8080/ReimbursementApp/api/submitreimbursement", settings);
+        let result = await httpResponse.text();
+        if(await result == "Success"){
+            await getReimbursementHistoryByEmployee();
+            document.getElementById("amount").value = "";    // Clean up input field
+            document.getElementById("description").value = "";
+            alert("Reimbursement submit successfully!")
+        }
+        else{
+            alert("Submission failed.")
+        }
+    }
+
+</script>
+
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+</head>
+<body>
+<h1>Welcome to the Reimbursement System</h1>
+
+<div>
+    <input type="radio" id="role_employee" name="employee" value="Employee" checked="checked">
+    <label for="role_employee">Employee</label>
+    <input type="radio" id="role_manager" name="employee" value="Manager">
+    <label for="role_manager">Employee</label>
+</div>
+
+<div>
+    <input id="username" type="text" placeholder="Enter your user name">
+    <br>
+    <input id="password" type="text" placeholder="Enter your password">
+</div>
+
+<div>
+    <button id="loginBtn">Login</button>
+</div>
+
+<h3 id="prompt"></h3>
+
+</body>
+
+<script>
+
+	document.getElementById("loginBtn").addEventListener("click", loginEntrance);
+
+    function loginEntrance(){
+        let employeeRadio = document.getElementById("role_employee");
+        let managerRadio = document.getElementById("role_manager");
+
+        if(employeeRadio.checked == true){
+            loginAsEmployee();
+        }
+        if(managerRadio.checked == true){
+            loginAsManager();
+        }
+    }
+
+    async function loginAsEmployee(){
+        
+        // Create Employee object
+        let employee = {};
+        employee.eId = 99;
+        employee.name = "DUMMY"
+        employee.username = document.getElementById("username").value;
+        employee.password = document.getElementById("password").value;
+
+        let settings = {
+            method: 'POST',
+            header:{'Content-Type':'application/json'},
+            body:JSON.stringify(employee)
+        }
+
+
+        let httpResponse = await fetch("http://localhost:8080/ReimbursementApp/api/loginemployee", settings);
+        let httpResponseStatus = await httpResponse.status;
+        let prompt = document.getElementById("prompt");
+        if(httpResponseStatus == 403){
+            prompt.innerHTML = "Unmatch username or passwor!"
+        }
+        else{
+            let employeeData = await httpResponse.json();
+            console.log(employeeData);  // For testing
+            prompt.innerHTML = "Correct username and password!"
+            window.location.href = "http://localhost:8080/ReimbursementApp/employee.html";
+        }
+
+    }
+
+    async function loginAsManager(){
+
+        let manager = {};
+        manager.mId = 99;
+        manager.name = "DUMMY";
+        manager.username = document.getElementById("username").value;
+        manager.password = document.getElementById("password").value;
+
+        let settings = {
+            method: "POST",
+            header: {'Content-Type':'application/json'},
+            body:JSON.stringify(manager)
+        }
+
+        let httpResponse = await fetch("http://localhost:8080/ReimbursementApp/api/loginmanager",settings);
+        let httpResponseStatus = await httpResponse.status;
+        let prompt = document.getElementById("prompt");
+        if(httpResponseStatus == 403){
+            prompt.innerHTML = "Unmatch username or passwor!"
+        }
+        else{
+            let managerData = await httpResponse.json();
+            console.log(managerData);  // For testing
+            prompt.innerHTML = "Correct username and password!"
+            window.location.href = "http://localhost:8080/ReimbursementApp/manager.html";
+        }
+
+    }
+
+</script>
+
+</html>
