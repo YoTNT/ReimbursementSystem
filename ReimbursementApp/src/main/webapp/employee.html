@@ -67,6 +67,19 @@
         let reimbursementHistory = document.getElementById("historyTable");
         let index = 1;
 
+        // Clean up the table before updating
+        reimbursementHistory.innerHTML = "";
+        // Rebuild the head of the table
+        reimbursementHistory.innerHTML = `
+        <thead><tr>
+                <th>Index</th>
+                <th>Amount</th>
+                <th>Description</th>
+                <th>Date and Time</th>
+                <th>Status</th>
+        </tr></thead>
+        `;
+
         for(reimbursement of reimbursements){
             reimbursementHistory.innerHTML = reimbursementHistory.innerHTML +
             `<tr>
@@ -106,6 +119,8 @@
         let result = await httpResponse.text();
         if(await result == "Success"){
             await getReimbursementHistoryByEmployee();
+            document.getElementById("amount").value = "";    // Clean up input field
+            document.getElementById("description").value = "";
             alert("Reimbursement submit successfully!")
         }
         else{
