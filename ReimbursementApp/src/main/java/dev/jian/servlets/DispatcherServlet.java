@@ -53,6 +53,18 @@ public class DispatcherServlet extends HttpServlet {
 			tcontroller.getManagerInformation(request, response);
 			break;
 			
+		case "/ReimbursementApp/api/getpendingreimbursements":
+			tcontroller.getPendingReimbursements(request, response);
+			break;
+		
+		case "/ReimbursementApp/api/getapprovedreimbursements":
+			tcontroller.getApprovedReimbursements(request, response);
+			break;
+		
+		case "/ReimbursementApp/api/getdeniedreimbursements":
+			tcontroller.getDeniedReimbursements(request, response);
+			break;
+			
 		default:
 			response.getWriter().append("Served at: ").append(request.getContextPath());
 			break;

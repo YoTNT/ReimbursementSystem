@@ -149,5 +149,33 @@ public class TaskController {
 		response.getWriter().append(json);
 		return;
 	}
+	
+	
+	public void getPendingReimbursements(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		Gson gson = new Gson();
+		
+		String json = gson.toJson(reimserv.getReimbursementsByStatus("Pending"));
+		
+		response.getWriter().append(json);
+	}
+	
+	public void getApprovedReimbursements(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		Gson gson = new Gson();
+		
+		String json = gson.toJson(reimserv.getReimbursementsByStatus("Approved"));
+		
+		response.getWriter().append(json);
+	}
+	
+	public void getDeniedReimbursements(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		Gson gson = new Gson();
+		
+		String json = gson.toJson(reimserv.getReimbursementsByStatus("Denied"));
+		
+		response.getWriter().append(json);
+	}
 		
 }

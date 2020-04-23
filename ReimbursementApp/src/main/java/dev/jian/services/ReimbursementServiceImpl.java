@@ -46,4 +46,9 @@ public class ReimbursementServiceImpl implements ReimbursementService{
 		return reimbursementdao.getReimbursementByRequesterId(requesterId);
 	}
 
+	@Override
+	public List<Reimbursement> getReimbursementsByStatus(String status) {
+		return reimbursementdao.getReimbursementByStatus(status);
+	}
+
 }
