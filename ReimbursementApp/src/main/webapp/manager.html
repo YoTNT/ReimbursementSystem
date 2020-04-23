@@ -67,6 +67,16 @@
         let reimbursements = await httpResponse.json();
         let index = 1;
 
+        document.getElementById("pendingTable").innerHTML = "";
+        document.getElementById("pendingTable").innerHTML = `
+        <thead><tr>
+                <th>Index</th>
+                <th>Amount</th>
+                <th>Description</th>
+                <th>Date and Time</th>
+        </tr></thead>
+        `;
+
         for(reimbursement of reimbursements){
             document.getElementById("pendingTable").innerHTML = document.getElementById("pendingTable").innerHTML +
             `<tr>
@@ -88,6 +98,16 @@
         let reimbursements = await httpResponse.json();
         let index = 1;
 
+        document.getElementById("approvedTable").innerHTML = "";
+        document.getElementById("approvedTable").innerHTML = `
+        <thead><tr>
+                <th>Index</th>
+                <th>Amount</th>
+                <th>Description</th>
+                <th>Date and Time</th>
+        </tr></thead>
+        `;
+
         for(reimbursement of reimbursements){
             document.getElementById("approvedTable").innerHTML = document.getElementById("approvedTable").innerHTML +
             `<tr>
@@ -106,6 +126,16 @@
         let httpResponse = await fetch("http://localhost:8080/ReimbursementApp/api/getdeniedreimbursements");
         let reimbursements = await httpResponse.json();
         let index = 1;
+
+        document.getElementById("deniedTable").innerHTML = "";
+        document.getElementById("deniedTable").innerHTML = `
+        <thead><tr>
+                <th>Index</th>
+                <th>Amount</th>
+                <th>Description</th>
+                <th>Date and Time</th>
+        </tr></thead>
+        `;
 
         for(reimbursement of reimbursements){
             document.getElementById("deniedTable").innerHTML = document.getElementById("deniedTable").innerHTML +
@@ -138,6 +168,9 @@
         let httpResponse = await fetch("http://localhost:8080/ReimbursementApp/api/approvereimbursement",settings);
         reimbursement = await httpResponse.json();
         console.log(`rId: ${reimbursement.rId}, amount: ${reimbursement.amount}, description: ${reimbursement.description}, datetime: ${reimbursement.datetime}, requesterId: ${reimbursement.requesterId}, status:${reimbursement.status}`);
+        await getAllPendingReimbursements();
+        await getAllApprovedReimbursements();
+        await getAllDeniedReimbursements();
     }
 
     async function denyReimbursement(element){
@@ -157,6 +190,9 @@
         let httpResponse = await fetch("http://localhost:8080/ReimbursementApp/api/denyreimbursement",settings);
         reimbursement = await httpResponse.json();
         console.log(`rId: ${reimbursement.rId}, amount: ${reimbursement.amount}, description: ${reimbursement.description}, datetime: ${reimbursement.datetime}, requesterId: ${reimbursement.requesterId}, status:${reimbursement.status}`);
+        await getAllPendingReimbursements();
+        await getAllApprovedReimbursements();
+        await getAllDeniedReimbursements();
     }
 
 
