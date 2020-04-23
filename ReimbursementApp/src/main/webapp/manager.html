@@ -74,6 +74,8 @@
                 <td>$${reimbursement.amount}</td>
                 <td>${reimbursement.description}</td>
                 <td>${reimbursement.datetime}</td>
+                <td><button rId=${reimbursement.rId} amount=${reimbursement.amount} description=${reimbursement.description} datetime=${reimbursement.datetime} requesterId=${reimbursement.requesterId} status=${reimbursement.status} onclick="approveReimbursement(this);">Approve</button></td>
+                <td><button rId=${reimbursement.rId} amount=${reimbursement.amount} description=${reimbursement.description} datetime=${reimbursement.datetime} requesterId=${reimbursement.requesterId} status=${reimbursement.status} onclick="denyReimbursement(this);">Deny</button></td>
             </tr>`;
 
             index++;
@@ -118,6 +120,44 @@
         }
     }
     getAllDeniedReimbursements();
+
+    async function approveReimbursement(element){
+        let reimbursement = {};
+        reimbursement.rId = element.getAttribute("rId");
+        reimbursement.amount = element.getAttribute("amount");
+        reimbursement.datetime = element.getAttribute("description");
+        reimbursement.requesterId = element.getAttribute("requesterId");
+        reimbursement.status = element.getAttribute("status");
+
+        let settings = {
+            method: "POST",
+            header:{'Content-Type':'application/json'},
+            body: JSON.stringify(reimbursement)
+        }
+
+        let httpResponse = await fetch("http://localhost:8080/ReimbursementApp/api/approvereimbursement",settings);
+        reimbursement = await httpResponse.json();
+        console.log(`rId: ${reimbursement.rId}, amount: ${reimbursement.amount}, description: ${reimbursement.description}, datetime: ${reimbursement.datetime}, requesterId: ${reimbursement.requesterId}, status:${reimbursement.status}`);
+    }
+
+    async function denyReimbursement(element){
+        let reimbursement = {};
+        reimbursement.rId = element.getAttribute("rId");
+        reimbursement.amount = element.getAttribute("amount");
+        reimbursement.datetime = element.getAttribute("description");
+        reimbursement.requesterId = element.getAttribute("requesterId");
+        reimbursement.status = element.getAttribute("status");
+
+        let settings = {
+            method: "POST",
+            header:{'Content-Type':'application/json'},
+            body: JSON.stringify(reimbursement)
+        }
+
+        let httpResponse = await fetch("http://localhost:8080/ReimbursementApp/api/denyreimbursement",settings);
+        reimbursement = await httpResponse.json();
+        console.log(`rId: ${reimbursement.rId}, amount: ${reimbursement.amount}, description: ${reimbursement.description}, datetime: ${reimbursement.datetime}, requesterId: ${reimbursement.requesterId}, status:${reimbursement.status}`);
+    }
 
 
 </script>
