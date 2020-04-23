@@ -65,6 +65,14 @@ public class DispatcherServlet extends HttpServlet {
 			tcontroller.getDeniedReimbursements(request, response);
 			break;
 			
+		case "/ReimbursementApp/api/approvereimbursement":
+			tcontroller.approveReimbursement(request, response);
+			break;
+			
+		case "/ReimbursementApp/api/denyreimbursement":
+			tcontroller.denyReimbursement(request, response);
+			break;
+			
 		default:
 			response.getWriter().append("Served at: ").append(request.getContextPath());
 			break;

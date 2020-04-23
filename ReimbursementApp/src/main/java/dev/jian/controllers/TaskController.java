@@ -177,5 +177,31 @@ public class TaskController {
 		
 		response.getWriter().append(json);
 	}
+	
+	public void approveReimbursement(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	
+		String body = request.getReader().lines().reduce("", (accumulator,actual) ->accumulator+actual);
+		
+		Gson gson = new Gson();
+		
+		Reimbursement reimbursement = gson.fromJson(body, Reimbursement.class);
+		
+		String json = gson.toJson(reimserv.approveReimbursement(reimbursement));
+		
+		response.getWriter().append(json);
+	}
+	
+	public void denyReimbursement(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		String body = request.getReader().lines().reduce("", (accumulator,actual) ->accumulator+actual);
+		
+		Gson gson = new Gson();
+		
+		Reimbursement reimbursement = gson.fromJson(body, Reimbursement.class);
+		
+		String json = gson.toJson(reimserv.denyReimbursement(reimbursement));
+		
+		response.getWriter().append(json);
+	}
 		
 }
