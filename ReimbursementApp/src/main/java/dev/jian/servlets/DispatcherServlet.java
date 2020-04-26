@@ -73,6 +73,10 @@ public class DispatcherServlet extends HttpServlet {
 			tcontroller.denyReimbursement(request, response);
 			break;
 			
+		case "/ReimbursementApp/api/logout":
+			tcontroller.logout(request, response);
+			break;
+			
 		default:
 			response.getWriter().append("Served at: ").append(request.getContextPath());
 			break;
