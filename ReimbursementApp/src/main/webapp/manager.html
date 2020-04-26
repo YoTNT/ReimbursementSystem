@@ -13,7 +13,7 @@
         </div>
     
         <ul class="nav navbar-nav">
-            <li><a href="index.html">Log Out</a></li>
+            <li><a id="logoutBtn" href="index.html">Log Out</a></li>
         </ul>
     </nav>
 
@@ -67,6 +67,8 @@
 </body>
 
 <script>
+
+    document.getElementById("logoutBtn").addEventListener("click",logout);
 
     async function getManagerInfo(){
         let httpResponse = await fetch("http://localhost:8080/ReimbursementApp/api/manager");
@@ -209,6 +211,12 @@
         await getAllDeniedReimbursements();
     }
 
+
+    async function logout(){
+        let httpResponse = await fetch("http://localhost:8080/ReimbursementApp/api/logout");
+        let body = await httpResponse.json();
+        console.log(body);
+    }
 
 </script>
 
