@@ -153,29 +153,45 @@ public class TaskController {
 	
 	public void getPendingReimbursements(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
-		Gson gson = new Gson();
-		
-		String json = gson.toJson(reimserv.getReimbursementsByStatus("Pending"));
-		
-		response.getWriter().append(json);
+		Manager manager = (Manager) request.getSession().getAttribute("manager");
+		if(manager != null) {
+			Gson gson = new Gson();
+			
+			String json = gson.toJson(reimserv.getReimbursementsByStatus("Pending"));
+			
+			response.getWriter().append(json);
+		}
+		else {
+			response.getWriter().append("NOT ALLOW ACCESS");
+		}
 	}
 	
 	public void getApprovedReimbursements(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
-		Gson gson = new Gson();
-		
-		String json = gson.toJson(reimserv.getReimbursementsByStatus("Approved"));
-		
-		response.getWriter().append(json);
+		Manager manager = (Manager) request.getSession().getAttribute("manager");
+		if(manager != null) {
+			Gson gson = new Gson();
+			
+			String json = gson.toJson(reimserv.getReimbursementsByStatus("Approved"));
+			
+			response.getWriter().append(json);
+		}
+		else {
+			response.getWriter().append("NOT ALLOW ACCESS");
+		}
 	}
 	
 	public void getDeniedReimbursements(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
-		Gson gson = new Gson();
-		
-		String json = gson.toJson(reimserv.getReimbursementsByStatus("Denied"));
-		
-		response.getWriter().append(json);
+		Manager manager = (Manager) request.getSession().getAttribute("manager");
+		if(manager != null) {
+			Gson gson = new Gson();
+			
+			String json = gson.toJson(reimserv.getReimbursementsByStatus("Denied"));
+			
+			response.getWriter().append(json);
+		}
+		else {
+			response.getWriter().append("NOT ALLOW ACCESS");
+		}
 	}
 	
 	public void approveReimbursement(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -202,6 +218,13 @@ public class TaskController {
 		String json = gson.toJson(reimserv.denyReimbursement(reimbursement));
 		
 		response.getWriter().append(json);
+	}
+	
+	public void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		HttpSession sess = request.getSession();
+		sess.invalidate();
+		
+		response.getWriter().append("Success");
 	}
 		
 }

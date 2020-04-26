@@ -3,14 +3,24 @@
 <html>
 
 <head>
-    <title>Employee Page</title>
+    <title>ZipMo Employee Page</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 
 <body>
+    <nav class="navbar navbar-inverse">
+        <div class="navbar-header">
+            <a class="navbar-band" href="#">Welcome</a>
+        </div>
+    
+        <ul class="nav navbar-nav">
+            <li><a id="logoutBtn" href="index.html">Log Out</a></li>
+        </ul>
+    </nav>
+
     <div class="container">
-        <div class="jumbotron">
-            <h1>Employee Reimbursement Main Page</h1>
+        <div class="jumbotron" style="background-color: deepskyblue;">
+            <h1>ZipMoer Reimbursement System</h1>
             <h2 id="welcome"></h2>
         </div>
     </div>
@@ -53,6 +63,7 @@
 <script>
 
     document.getElementById("submitBtn").addEventListener("click",submitReimbursement);
+    document.getElementById("logoutBtn").addEventListener("click",logout);
 
     async function getEmployeeInfo(){
 
@@ -132,6 +143,13 @@
         else{
             alert("Submission failed.")
         }
+    }
+
+
+    async function logout(){
+        let httpResponse = await fetch("http://localhost:8080/ReimbursementApp/api/logout");
+        let body = await httpResponse.json();
+        console.log(body);
     }
 
 </script>

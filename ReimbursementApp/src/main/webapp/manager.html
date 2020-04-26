@@ -2,14 +2,24 @@
 <html>
 
 <head>
-    <title>Manager Page</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <title>ZipMo Manager Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 
 <body>
+    <nav class="navbar navbar-inverse">
+        <div class="navbar-header">
+            <a class="navbar-band" href="#">Welcom</a>
+        </div>
+    
+        <ul class="nav navbar-nav">
+            <li><a id="logoutBtn" href="index.html">Log Out</a></li>
+        </ul>
+    </nav>
+
     <div class="container">
-        <div class="jumbotron">
-            <h1>Manager Reimbursement System</h1>
+        <div class="jumbotron" style="background-color: mediumaquamarine;">
+            <h1>ZipMo Reimbursement Manage System (Manager ONLY)</h1>
             <p id="welcome"></p>
         </div>
     </div>
@@ -57,6 +67,8 @@
 </body>
 
 <script>
+
+    document.getElementById("logoutBtn").addEventListener("click",logout);
 
     async function getManagerInfo(){
         let httpResponse = await fetch("http://localhost:8080/ReimbursementApp/api/manager");
@@ -199,6 +211,12 @@
         await getAllDeniedReimbursements();
     }
 
+
+    async function logout(){
+        let httpResponse = await fetch("http://localhost:8080/ReimbursementApp/api/logout");
+        let body = await httpResponse.json();
+        console.log(body);
+    }
 
 </script>
 
