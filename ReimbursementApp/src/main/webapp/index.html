@@ -2,29 +2,46 @@
 
 <html>
 <head>
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    
 </head>
 <body>
-<h1>Welcome to the Reimbursement System</h1>
 
-<div>
-    <input type="radio" id="role_employee" name="employee" value="Employee" checked="checked">
-    <label for="role_employee">Employee</label>
-    <input type="radio" id="role_manager" name="employee" value="Manager">
-    <label for="role_manager">Employee</label>
+<nav class="navbar navbar-inverse">
+    <div class="navbar-header">
+        <a class="navbar-band" href="#">Welcom</a>
+    </div>
+
+    <ul class="nav navbar-nav">
+        <li><a href="introduction.html">Introduction</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <div class="jumbotron">
+        <h1>Welcome to the Reimbursement System</h1>
+        <p>Please select the right role for you, and enter your username and password to sign in.</p>
+    </div>
 </div>
+<!-- <h1>Welcome to the Reimbursement System</h1> -->
 
-<div>
-    <input id="username" type="text" placeholder="Enter your user name">
-    <br>
-    <input id="password" type="text" placeholder="Enter your password">
+<div class="container">
+    <!-- <form class="form-group"></form> -->
+        <div>
+            <input type="radio" id="role_employee" name="employee" value="Employee" checked="checked">
+            <label for="role_employee">Employee</label>
+        <input type="radio" id="role_manager" name="employee" value="Manager">
+        <label for="role_manager">Employee</label>
+        </div>
+        <div>
+            <input id="username" class="form-control" type="text" placeholder="Enter your user name">
+            <input id="password" class="form-control" type="text" placeholder="Enter your password">
+        </div>
+        <br>
+        <button id="loginBtn" class="btn btn-primary">Login</button>
+        <h3 id="prompt"></h3>
+    <!-- </form> -->
 </div>
-
-<div>
-    <button id="loginBtn">Login</button>
-</div>
-
-<h3 id="prompt"></h3>
 
 </body>
 

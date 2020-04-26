@@ -7,49 +7,53 @@
 </head>
 
 <body>
-    <div>
-
-        <h1>Manager Reimbursement Main Page</h1>
-        <h2 id="welcome"></h2>
-
-        <br>
-        <br>
-
-        <h3>Pending Reimbursement List</h3>
-        <table id="pendingTable" class="table table-bordered">
-            <thead><tr>
-                <th>Index</th>
-                <th>Amount</th>
-                <th>Description</th>
-                <th>Date and Time</th>
-            </tr></thead>
-        </table>
-
-        <br>
-
-        <h3>Approved Reimbursement List</h3>
-        <table id="approvedTable" class="table table-bordered">
-            <thead><tr>
-                <th>Index</th>
-                <th>Amount</th>
-                <th>Description</th>
-                <th>Date and Time</th>
-            </tr></thead>
-        </table>
-
-        <br>
-
-        <h3>Denied Reimbursement List</h3>
-        <table id="deniedTable" class="table table-bordered">
-            <thead><tr>
-                <th>Index</th>
-                <th>Amount</th>
-                <th>Description</th>
-                <th>Date and Time</th>
-            </tr></thead>
-        </table>
-
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Manager Reimbursement System</h1>
+            <p id="welcome"></p>
+        </div>
     </div>
+
+    <div class="container">
+        <h3>Pending Reimbursement List</h3>
+        <table id="pendingTable" class="table table-striped">
+            <thead><tr>
+                <th>Index</th>
+                <th>Amount</th>
+                <th>Description</th>
+                <th>Date and Time</th>
+            </tr></thead>
+        </table>
+    </div>
+
+        <br>
+
+    <div class="container">
+        <h3><span style="color:darkgreen">Approved</span> Reimbursement List</h3>
+        <table id="approvedTable" class="table table-striped">
+            <thead><tr>
+                <th>Index</th>
+                <th>Amount</th>
+                <th>Description</th>
+                <th>Date and Time</th>
+            </tr></thead>
+        </table>
+    </div>
+
+        <br>
+
+    <div class="container">
+        <h3><span style="color:darkred">Denied</span> Reimbursement List</h3>
+        <table id="deniedTable" class="table table-striped">
+            <thead><tr>
+                <th>Index</th>
+                <th>Amount</th>
+                <th>Description</th>
+                <th>Date and Time</th>
+            </tr></thead>
+        </table>
+    </div>
+
 </body>
 
 <script>
@@ -84,8 +88,8 @@
                 <td>$${reimbursement.amount}</td>
                 <td>${reimbursement.description}</td>
                 <td>${reimbursement.datetime}</td>
-                <td><button rId=${reimbursement.rId} amount=${reimbursement.amount} description=${reimbursement.description} datetime=${reimbursement.datetime} requesterId=${reimbursement.requesterId} status=${reimbursement.status} onclick="approveReimbursement(this);">Approve</button></td>
-                <td><button rId=${reimbursement.rId} amount=${reimbursement.amount} description=${reimbursement.description} datetime=${reimbursement.datetime} requesterId=${reimbursement.requesterId} status=${reimbursement.status} onclick="denyReimbursement(this);">Deny</button></td>
+                <td><button class="btn btn-success" rId=${reimbursement.rId} amount=${reimbursement.amount} description=${reimbursement.description} datetime=${reimbursement.datetime} requesterId=${reimbursement.requesterId} status=${reimbursement.status} onclick="approveReimbursement(this);">Approve</button></td>
+                <td><button class="btn btn-danger" rId=${reimbursement.rId} amount=${reimbursement.amount} description=${reimbursement.description} datetime=${reimbursement.datetime} requesterId=${reimbursement.requesterId} status=${reimbursement.status} onclick="denyReimbursement(this);">Deny</button></td>
             </tr>`;
 
             index++;

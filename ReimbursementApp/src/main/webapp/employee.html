@@ -4,31 +4,37 @@
 
 <head>
     <title>Employee Page</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 
 <body>
-    <h1>Employee Reimbursement Main Page</h1>
-    <h2 id="welcome"></h2>
-    <br>
-    <div id="reimburseSubmission">
-        <h3>Reimbursement Submission</h3>
-        <label for="amount">Amount</label>
-        <input id="amount" type="number" placeholder="Enter your reimbursement amount">
-        <br>
-        <h4>Description</h4>
-        <textarea id="description" type="text" rows="10" cols="30" 
-        placeholder="Enter the description of your reimbursement"></textarea>
-        <br>
-        <button id="submitBtn">Submit</button>
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Employee Reimbursement Main Page</h1>
+            <h2 id="welcome"></h2>
+        </div>
+    </div>
+
+    <div id="reimburseSubmission" class="container">
+        <form class="form-group">
+            <h3>Reimbursement Submission</h3>
+            <label for="amount">Amount</label>
+            <input id="amount" class="form-control" type="number" placeholder="Enter your reimbursement amount">
+            <br>
+            <h4>Description</h4>
+            <textarea id="description" class="form-control"  type="text" rows="10" cols="30" 
+            placeholder="Enter the description of your reimbursement"></textarea>
+            <br>
+            <button id="submitBtn" class="btn btn-primary btn-lg">Submit</button>
+        </form>
     </div>
 
     <br>
 
-    <div id="reimbursemenHistory">
+    <div id="reimbursemenHistory" class="container">
         
         <h3>Reimburse History</h3>
-        <table id="historyTable" class="table table-bordered">
+        <table id="historyTable" class="table table-striped">
             <thead><tr>
                 <th>Index</th>
                 <th>Amount</th>
