@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+    <div class="navbar-header">
+        <a class="navbar-band" href="#">Welcom</a>
+    </div>
+
+    <ul class="nav navbar-nav">
+        <li><a href="introduction.html">Introduction</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <div class="jumbotron">
+        <h1>Welcome to the Reimbursement System</h1>
+        <p>Please select the right role for you, and enter your username and password to sign in.</p>
+    </div>
+</div>
+<!-- <h1>Welcome to the Reimbursement System</h1> -->
+
+<div class="container">
+    <!-- <form class="form-group"></form> -->
+        <div>
+            <input type="radio" id="role_employee" name="employee" value="Employee" checked="checked">
+            <label for="role_employee">Employee</label>
+        <input type="radio" id="role_manager" name="employee" value="Manager">
+        <label for="role_manager">Employee</label>
+        </div>
+        <div>
+            <input id="username" class="form-control" type="text" placeholder="Enter your user name">
+            <input id="password" class="form-control" type="text" placeholder="Enter your password">
+        </div>
+        <br>
+        <button id="loginBtn" class="btn btn-primary">Login</button>
+        <h3 id="prompt"></h3>
+    <!-- </form> -->
+</div>
+
+</body>
+
+<script>
+
+	document.getElementById("loginBtn").addEventListener("click", loginEntrance);
+
+    function loginEntrance(){
+        let employeeRadio = document.getElementById("role_employee");
+        let managerRadio = document.getElementById("role_manager");
+
+        if(employeeRadio.checked == true){
+            loginAsEmployee();
+        }
+        if(managerRadio.checked == true){
+            loginAsManager();
+        }
+    }
+
+    async function loginAsEmployee(){
+        
+        // Create Employee object
+        let employee = {};
+        employee.eId = 99;
+        employee.name = "DUMMY"
+        employee.username = document.getElementById("username").value;
+        employee.password = document.getElementById("password").value;
+
+        let settings = {
+            method: 'POST',
+            header:{'Content-Type':'application/json'},
+            body:JSON.stringify(employee)
+        }
+
+
+        let httpResponse = await fetch("http://localhost:8080/ReimbursementApp/api/loginemployee", settings);
+        let httpResponseStatus = await httpResponse.status;
+        let prompt = document.getElementById("prompt");
+        if(httpResponseStatus == 403){
+            prompt.innerHTML = "Unmatch username or passwor!"
+        }
+        else{
+            let employeeData = await httpResponse.json();
+            console.log(employeeData);  // For testing
+            prompt.innerHTML = "Correct username and password!"
+            window.location.href = "http://localhost:8080/ReimbursementApp/employee.html";
+        }
+
+    }
+
+    async function loginAsManager(){
+
+        let manager = {};
+        manager.mId = 99;
+        manager.name = "DUMMY";
+        manager.username = document.getElementById("username").value;
+        manager.password = document.getElementById("password").value;
+
+        let settings = {
+            method: "POST",
+            header: {'Content-Type':'application/json'},
+            body:JSON.stringify(manager)
+        }
+
+        let httpResponse = await fetch("http://localhost:8080/ReimbursementApp/api/loginmanager",settings);
+        let httpResponseStatus = await httpResponse.status;
+        let prompt = document.getElementById("prompt");
+        if(httpResponseStatus == 403){
+            prompt.innerHTML = "Unmatch username or passwor!"
+        }
+        else{
+            let managerData = await httpResponse.json();
+            console.log(managerData);  // For testing
+            prompt.innerHTML = "Correct username and password!"
+            window.location.href = "http://localhost:8080/ReimbursementApp/manager.html";
+        }
+
+    }
+
+</script>
+
+</html>
