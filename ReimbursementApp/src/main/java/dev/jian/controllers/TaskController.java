@@ -203,5 +203,12 @@ public class TaskController {
 		
 		response.getWriter().append(json);
 	}
+	
+	public void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		HttpSession sess = request.getSession();
+		sess.invalidate();
+		
+		response.getWriter().append("Success");
+	}
 		
 }
